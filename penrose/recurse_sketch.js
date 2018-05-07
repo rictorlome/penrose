@@ -7,9 +7,9 @@ var config;
 var curTime;
 var TIME_OFFSET = 0;
 
-const MAX_DEPTH = 9;
+const MAX_DEPTH = 8;
 const FRAME_RATE = 12;
-const SECS_TO_FILL = 2;
+const SECS_TO_FILL = 5;
 const depthToShapes = {};
 
 p5.disableFriendlyErrors = true;
@@ -18,7 +18,7 @@ function setup() {
   createCanvas(displayWidth,displayHeight)
   let menu = document.getElementById('menu')
   let row1 = document.getElementById('row1')
-  depthSlider = createSlider(3,MAX_DEPTH,7);
+  depthSlider = createSlider(1,MAX_DEPTH,7);
   depthSlider.parent(row1)
   revealSlider = createSlider(1,10,3);
   revealSlider.parent(row1)
@@ -120,9 +120,6 @@ function paraboloid(point) {
   return x + y * Math.sin(revealSlider.value() * x);
 }
 function isVisible(point, time=0) {
-  // const xFrontier = width * time;
-  // const z = sin(point.x+point.y) + point.x;
-  // return z < xFrontier;
   return timeSubmerged(point,paraboloid) < time;
 }
 

@@ -25,6 +25,7 @@ body {
   z-index:3;
   left:5%;
   cursor:pointer;
+  background-color: white;
 }
 #menu {
   top:0;
