@@ -1,5 +1,6 @@
 var depthSlider;
 var revealSlider;
+var speedSlider;
 var colorSliders;
 
 
@@ -9,7 +10,6 @@ var TIME_OFFSET = 0;
 
 const MAX_DEPTH = 8;
 const FRAME_RATE = 12;
-const SECS_TO_FILL = 5;
 const depthToShapes = {};
 
 p5.disableFriendlyErrors = true;
@@ -17,19 +17,20 @@ p5.disableFriendlyErrors = true;
 function setup() {
   createCanvas(displayWidth,displayHeight)
   let menu = document.getElementById('menu')
-  let row1 = document.getElementById('row1')
   depthSlider = createSlider(1,MAX_DEPTH,7);
-  depthSlider.parent(row1)
-  revealSlider = createSlider(1,10,3);
-  revealSlider.parent(row1)
+  depthSlider.parent(document.getElementById('depth'))
+  revealSlider = createSlider(1,10,5);
+  revealSlider.parent(document.getElementById('reveal'))
+  speedSlider = createSlider(2,10,3);
+  speedSlider.parent(document.getElementById('speed'))
 
   colorSliders = initializeColorSliders(menu)
-
   button = createButton('Reset');
-  // button.position(250,80)
-  button.parent(menu)
+  button.parent(document.getElementById('reset'))
   button.mousePressed( () => TIME_OFFSET = curTime)
-
+  document.addEventListener('keypress', (e) => {
+    if (e.key === 'r') TIME_OFFSET = curTime;
+  })
   config = {
     1: color('white'),
     2: color('grey'),
@@ -37,11 +38,11 @@ function setup() {
     4: color('white'),
     5: color('pink')
 
-    // 1: color('red'),
-    // 2: color('blue'),
-    // 3: color('yellow'),
-    // 4: color('white'),
-    // 5: color('white')
+    // 1: color('purple'),
+    // 2: color('green'),
+    // 3: color('pink'),
+    // 4: color('orange'),
+    // 5: color('blue')
   }
   frameRate(FRAME_RATE)
 
@@ -54,7 +55,6 @@ function draw() {
   clear()
   background('black');
   strokeWeight(1/(2*depthSlider.value()))
-  // strokeWeight(4)
   curTime = frameCount / FRAME_RATE;
   const shapes = shapesAtDepth(depthToShapes,depthSlider.value())
   const length = shapes.length;
@@ -112,7 +112,7 @@ function shapesAtDepth(map, depth) {
 function timeSubmerged(point,func) {
   const newPoint = createVector(point.x/width,point.y/height);
   const fracTime = func(newPoint);
-  return fracTime * SECS_TO_FILL;
+  return fracTime * speedSlider.value();
 }
 function paraboloid(point) {
   var x = point.x;
@@ -127,11 +127,10 @@ function initializeColorSliders(menu) {
   let colorSliders = []
   for (let i = 0; i < 5; i++) {
     let h = 120 + (30 * i)
-    colorSliders[i] = createSlider(0,255,i*40)
-    colorSliders[i].position(250,h)
-    colorSliders[i].parent(menu)
+    colorSliders[i] = createSlider(0,105,i*5)
+    colorSliders[i].parent(document.getElementById('color'+String(i+1)))
     colorSliders[i].input((change) => {
-      config[i+1] = color(colorSliders[i].value())
+      config[i+1] = color('#' + hsh[colorSliders[i].value()])
     })
   }
   return colorSliders
