@@ -3,24 +3,51 @@
   <head>
     <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
     <link rel="stylesheet" href="./css/index.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600" rel="stylesheet">
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
     <script src="./p5.min.js"></script>
     <script src="./addons/p5.dom.min.js"></script>
     <script src="./addons/p5.sound.min.js"></script>
     <script src="./utils/vector_util.js"></script>
     <script src="./penrose/penrose_class.js"></script>
+    <script src="./penrose/colors.js"></script>
     <script src="./penrose/recurse_sketch.js"></script>
   </head>
   <body>
 
-    <button id="burger" class="slideLeft hamburger hamburger--spin" type="button">
+    <button id="burger" class="hamburger hamburger--spin" type="button">
       <span class="hamburger-box">
         <span class="hamburger-inner"></span>
       </span>
     </button>
 
     <div id="menu" class="hidden slideLeft">
-      <div id="row1"></div>
-      <div id="row2"></div>
+      <div class="row" id="row1">
+        <h1>The Penrose Tiles</h1>
+        <div>A project by <a href="www.thingsishow.com">Samuel Golland</a></div>
+          <div id="contact-buttons-inner">
+            <a href="http://www.github.com/rictorlome"><img id="github" src='images/github-logo.svg'></img>
+            </a>
+          </div>
+      </div>
+      <div class="row" id="row2">
+        <div id="depth">Recursion Depth</div>
+        <div id="speed">Reveal Duration</div>
+        <div id="reveal">Reveal Pattern</div>
+      </div>
+      <div class="row" id="row3">
+        <div id="color1">Color One</div>
+        <div id="color2">Color Two</div>
+        <div id="color3">Color Three</div>
+        <div id="color4">Color Four</div>
+        <div id="color5">Color Five</div>
+      </div>
+      <div class="row" id="row4">
+        <div id="reset"> You can also press 'r' to reset the tiling when this menu is closed.</div>
+      </div>
+      <div class="row" id="row5">
+        For additional information, please visit the <a href="www.github.com/rictorlome/penrose">github repository</a> which goes into detail about Penrose tiles as well as this implementation.
+      </div>
     </div>
 
   </body>
@@ -30,8 +57,6 @@
       const menu = document.getElementById('menu');
       burger.addEventListener('click', () => {
         burger.classList.toggle('is-active')
-        burger.classList.toggle('slideRight')
-        burger.classList.toggle('slideLeft')
 
         menu.classList.toggle('hidden')
         menu.classList.toggle('slideRight')

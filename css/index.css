@@ -4,6 +4,12 @@ body {
   padding: 0;
   margin: 0 auto;
   overflow: hidden;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10pt;
+}
+
+h1 {
+  font-size: 24pt;
 }
 
 
@@ -21,36 +27,50 @@ body {
   position: absolute;
   top:10%;
 }
+#contact-buttons-inner {
+  margin-top:10%;
+}
+#github {
+  width:20%;
+}
 #burger {
   z-index:3;
-  left:5%;
+  right:5%;
   cursor:pointer;
-  background-color: white;
+  background-color: rgba(255,255,255,.2)
 }
 #menu {
   top:0;
   bottom:0;
-  width:20%;
-  min-width: 140px;
-  background-color: yellow;
+  width:15%;
+  min-width: 150px;
+  background-color: #ffed9e;
   display:grid;
+  border-right: 1px solid black;
   grid-template-rows: repeat(5,1fr)
 }
 
-.onerow {
-  grid-row: 0/1;
+#menu div {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  text-align: center;
 }
-.tworow {
-  grid-row: 1/2;
+#menu input {
+  margin: 0 auto;
 }
-.threerow {
-  grid-row: 2/3;
+
+#reset {
+  width: 80%;
+  margin: 0 auto;
+  height: 50%;
 }
-.fourrow {
-  grid-row: 3/4;
+
+#reset button {
+  margin-top: 5%;
 }
-.fiverow {
-  grid-row: 4/5;
+
+.row {
+  width:80%;
+  margin: 0 auto;
 }

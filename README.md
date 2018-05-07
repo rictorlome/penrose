@@ -1,6 +1,6 @@
 # Penrose Tiles
 
-![Screenshot](Link to Screenshot..)
+![Screenshot](https://raw.githubusercontent.com/rictorlome/penrose/master/images/penrose_screenshot.png)
 
 ### [Live Link](http://thingsishow.com/penrose)
 
@@ -20,7 +20,7 @@ This emergent property is surprising because the entire pattern is composed of t
 
 In this implementation, tile construction relies on recursive definitions of JavaScript classes. The Kite and Dart objects each half into two HalfKite and HalfDart objects. The HalfKite and HalfDart objects each have a subdivide method which constructs new HalfKites and HalfDarts according to the image below. The construction logic is totally separate from the p5 render logic, so that the same general class structure can be used with any rendering library.
 
-![Link from http://archive.bridgesmathart.org/2017/bridges2017-213.pdf](Link to tiling pattern)
+![Link from http://archive.bridgesmathart.org/2017/bridges2017-213.pdf](https://raw.githubusercontent.com/rictorlome/penrose/master/images/tiling%20pattern.jpg)
 
 ```javascript
 class HalfKite {
