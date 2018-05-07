@@ -1,5 +1,7 @@
 var depthSlider;
+var revealSlider;
 var colorSliders;
+
 
 var config;
 var curTime;
@@ -14,27 +16,32 @@ p5.disableFriendlyErrors = true;
 
 function setup() {
   createCanvas(displayWidth,displayHeight)
+  let menu = document.getElementById('menu')
+  let row1 = document.getElementById('row1')
   depthSlider = createSlider(3,MAX_DEPTH,7);
-  depthSlider.position(250,50);
+  depthSlider.parent(row1)
+  revealSlider = createSlider(1,10,3);
+  revealSlider.parent(row1)
 
-  colorSliders = initializeColorSliders()
+  colorSliders = initializeColorSliders(menu)
 
   button = createButton('Reset');
-  button.position(250,80)
+  // button.position(250,80)
+  button.parent(menu)
   button.mousePressed( () => TIME_OFFSET = curTime)
 
   config = {
-    // 1: color('white'),
-    // 2: color('grey'),
-    // 3: color('grey'),
-    // 4: color('white'),
-    // 5: color('pink')
-
-    1: color('red'),
-    2: color('blue'),
-    3: color('yellow'),
+    1: color('white'),
+    2: color('grey'),
+    3: color('grey'),
     4: color('white'),
-    5: color('white')
+    5: color('pink')
+
+    // 1: color('red'),
+    // 2: color('blue'),
+    // 3: color('yellow'),
+    // 4: color('white'),
+    // 5: color('white')
   }
   frameRate(FRAME_RATE)
 
@@ -110,13 +117,7 @@ function timeSubmerged(point,func) {
 function paraboloid(point) {
   var x = point.x;
   var y = point.y;
-  // x = Math.pow(x - 0.5,2)
-  // y = Math.pow(y - 0.5,2)
-  return x + y * Math.sin(4 * x);
-  // return Math.sin(x) + 2 * y * Math.cos(6 * Math.PI * y );
-  // return Math.sin(x) + Math.sin(y);
-  // return Math.pow(Math.abs(point.x-0.5),2) + Math.abs(Math.sin(point.y-0.5))*3;
-  // return Math.pow(x, 2) + 0.5 * (x + Math.sin(y));
+  return x + y * Math.sin(revealSlider.value() * x);
 }
 function isVisible(point, time=0) {
   // const xFrontier = width * time;
@@ -125,12 +126,13 @@ function isVisible(point, time=0) {
   return timeSubmerged(point,paraboloid) < time;
 }
 
-function initializeColorSliders() {
+function initializeColorSliders(menu) {
   let colorSliders = []
   for (let i = 0; i < 5; i++) {
     let h = 120 + (30 * i)
     colorSliders[i] = createSlider(0,255,i*40)
     colorSliders[i].position(250,h)
+    colorSliders[i].parent(menu)
     colorSliders[i].input((change) => {
       config[i+1] = color(colorSliders[i].value())
     })

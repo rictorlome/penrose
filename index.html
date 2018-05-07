@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
-    <style> body {padding: 0; margin: 0 auto; overflow: hidden;} </style>
+    <link rel="stylesheet" href="./css/index.css">
     <script src="./p5.min.js"></script>
     <script src="./addons/p5.dom.min.js"></script>
     <script src="./addons/p5.sound.min.js"></script>
@@ -11,5 +11,32 @@
     <script src="./penrose/recurse_sketch.js"></script>
   </head>
   <body>
+
+    <button id="burger" class="slideLeft hamburger hamburger--spin" type="button">
+      <span class="hamburger-box">
+        <span class="hamburger-inner"></span>
+      </span>
+    </button>
+
+    <div id="menu" class="hidden slideLeft">
+      <div id="row1"></div>
+      <div id="row2"></div>
+    </div>
+
   </body>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", () => {
+      const burger = document.getElementById('burger');
+      const menu = document.getElementById('menu');
+      burger.addEventListener('click', () => {
+        burger.classList.toggle('is-active')
+        burger.classList.toggle('slideRight')
+        burger.classList.toggle('slideLeft')
+
+        menu.classList.toggle('hidden')
+        menu.classList.toggle('slideRight')
+        menu.classList.toggle('slideLeft')
+      })
+    })
+  </script>
 </html>
