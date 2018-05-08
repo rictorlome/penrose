@@ -14,9 +14,13 @@ const depthToShapes = {};
 
 p5.disableFriendlyErrors = true;
 
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 function setup() {
   createCanvas(displayWidth,displayHeight)
-  let menu = document.getElementById('menu')
+
   depthSlider = createSlider(1,MAX_DEPTH,7);
   depthSlider.parent(document.getElementById('depth'))
   revealSlider = createSlider(1,10,5);
@@ -24,26 +28,15 @@ function setup() {
   speedSlider = createSlider(2,10,3);
   speedSlider.parent(document.getElementById('speed'))
 
-  colorSliders = initializeColorSliders(menu)
+
+  config = {}
+  colorSliders = initializeColorSliders()
   button = createButton('Reset');
   button.parent(document.getElementById('reset'))
   button.mousePressed( () => TIME_OFFSET = curTime)
   document.addEventListener('keypress', (e) => {
     if (e.key === 'r') TIME_OFFSET = curTime;
   })
-  config = {
-    1: color('white'),
-    2: color('grey'),
-    3: color('grey'),
-    4: color('white'),
-    5: color('pink')
-
-    // 1: color('purple'),
-    // 2: color('green'),
-    // 3: color('pink'),
-    // 4: color('orange'),
-    // 5: color('blue')
-  }
   frameRate(FRAME_RATE)
 
   const center = createVector(width/2,height/2);
@@ -114,23 +107,34 @@ function timeSubmerged(point,func) {
   const fracTime = func(newPoint);
   return fracTime * speedSlider.value();
 }
-function paraboloid(point) {
+function revealCurve(point) {
   var x = point.x;
   var y = point.y;
   return x + y * Math.sin(revealSlider.value() * x);
 }
 function isVisible(point, time=0) {
-  return timeSubmerged(point,paraboloid) < time;
+  return timeSubmerged(point,revealCurve) < time;
 }
 
-function initializeColorSliders(menu) {
+function initializeColorSliders() {
   let colorSliders = []
   for (let i = 0; i < 5; i++) {
     let h = 120 + (30 * i)
-    colorSliders[i] = createSlider(0,105,i*5)
+    let randomInt = getRandomInt(0,100)
+    colorSliders[i] = createSlider(0,100,randomInt)
+    colorMode(HSB,20)
+    let val = colorSliders[i].value()
+    let hs = Math.floor(val/5)
+    let b = (val % 5) * 4 + 2
+    config[i+1] = color(hs,hs,b)
+
     colorSliders[i].parent(document.getElementById('color'+String(i+1)))
     colorSliders[i].input((change) => {
-      config[i+1] = color('#' + hsh[colorSliders[i].value()])
+      colorMode(HSB,20)
+      val = colorSliders[i].value()
+      hs = Math.floor(val/5)
+      b = (val % 5) * 4 + 2
+      config[i+1] = color(hs,hs,b)
     })
   }
   return colorSliders

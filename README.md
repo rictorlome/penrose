@@ -36,10 +36,10 @@ class HalfKite {
 ```
 Each recursion depth is stored in a HashMap mapping level to the array of shapes constructed at that level. Based on which depth you want to see, the render logic iterates through the appropriate array and renders all the shapes in that array.
 
-The appearance of tiling is actually an illusion because all the tiles, for every depth up to the maximum depth, already exist in their respective arrays with predetermined positions on the screen. The reveal is effected by a separate, customizable ```paraboloid``` function which describes a moving frontier ahead of which the tiles do not render.
+The appearance of tiling is actually an illusion because all the tiles, for every depth up to the maximum depth, already exist in their respective arrays with predetermined positions on the screen. The reveal is effected by a separate, customizable ```revealCurve``` function which describes a moving frontier ahead of which the tiles do not render.
 
 ```javascript
-function paraboloid(point) {
+function revealCurve(point) {
   var x = point.x;
   var y = point.y;
   return x + y * Math.sin(revealSlider.value() * x);
