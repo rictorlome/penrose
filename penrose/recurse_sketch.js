@@ -23,7 +23,8 @@ function setup() {
 
   depthSlider = createSlider(1,MAX_DEPTH,7);
   depthSlider.parent(document.getElementById('depth'))
-  revealSlider = createSlider(1,10,5);
+  let curReveal = getRandomInt(1,10)
+  revealSlider = createSlider(1,10,curReveal);
   revealSlider.parent(document.getElementById('reveal'))
   speedSlider = createSlider(2,10,3);
   speedSlider.parent(document.getElementById('speed'))

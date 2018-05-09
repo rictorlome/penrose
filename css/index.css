@@ -9,7 +9,9 @@ body {
 }
 
 h1 {
-  font-size: 24pt;
+  font-size: 20pt;
+  margin-top: 5px;
+  margin-bottom:10px;
 }
 
 
@@ -28,7 +30,7 @@ h1 {
   top:10%;
 }
 #contact-buttons-inner {
-  margin-top:10%;
+  margin-top:5px;
 }
 #github {
   width:20%;
@@ -61,7 +63,7 @@ h1 {
 }
 
 #reset {
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   height: 50%;
 }
