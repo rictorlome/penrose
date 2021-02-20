@@ -57,9 +57,6 @@ class Dart {
   pointFromSide(side) {
     return (side === RIGHT ? this.pointFromRightSide : this.pointFromLeftSide);
   }
-  pointFromMidSide(side) {
-    return p5.Vector.lerp(this.tip,this.pointFromSide(side),ratio);
-  }
   render() {
     triangle(this.tip.x,this.tip.y,this.tail.x,this.tail.y,this.pointFromSide(LEFT).x,this.pointFromSide(LEFT).y)
     triangle(this.tip.x,this.tip.y,this.tail.x,this.tail.y,this.pointFromSide(RIGHT).x,this.pointFromSide(RIGHT).y)
@@ -76,7 +73,7 @@ class HalfKite {
     const parentKite = this.kite;
     const babyKite = new Kite(parentKite.center,vectorBetween(parentKite.center,parentKite.pointFromSide(this.side)));
     const dart = new Dart(parentKite.tail,vectorBetween(parentKite.tail,babyKite.pointFromOtherSide(this.side)));
-    return [new HalfKite(babyKite,LEFT,1), new HalfKite(babyKite,RIGHT,2), new HalfDart(dart,opposite(this.side),3)];
+    return [new HalfKite(babyKite,this.side,1), new HalfKite(babyKite,opposite(this.side),2), new HalfDart(dart,opposite(this.side),3)];
   }
   render() {
     fill(config[this.label])
@@ -97,10 +94,9 @@ class HalfDart {
   subdivide() {
     const parentDart = this.dart;
     const sidePoint = parentDart.pointFromSide(this.side);
-    const pointFromMidSide = parentDart.pointFromMidSide(this.side);
-    const babyKite = new Kite(pointFromMidSide,vectorBetween(pointFromMidSide,parentDart.tip))
-    const babyDart = new Dart(sidePoint,vectorBetween(sidePoint,pointFromMidSide));
-    return [new HalfKite(babyKite,opposite(this.side),4), new HalfDart(babyDart,this.side,5)]
+    const babyKite = new Kite(parentDart.tail,p5.Vector.mult(parentDart.vector,-1))
+    const babyDart = new Dart(sidePoint,vectorBetween(sidePoint,babyKite.pointFromSide(this.side)));
+    return [new HalfKite(babyKite,this.side,4), new HalfDart(babyDart,this.side,5)]
   }
   render() {
     fill(config[this.label])
