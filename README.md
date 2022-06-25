@@ -2,7 +2,7 @@
 
 ![Screenshot](https://raw.githubusercontent.com/rictorlome/penrose/master/images/penrose_screenshot.png)
 
-### [Live Link](http://thingsishow.com/penrose)
+### [Live Link](https://rictorlome.github.io/penrose/)
 
 An implementation of Penrose tiling, written using the [p5.js](https://p5js.org/) library.
 The following article was a great resource in understanding how to represent tiling recursively: [Hidden Beauty in Penrose Tiling: Wavings & Lace](http://archive.bridgesmathart.org/2017/bridges2017-213.pdf)
